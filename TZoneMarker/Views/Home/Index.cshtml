@@ -5,28 +5,41 @@
 }
 @model IEnumerable<TZone>
 
-<style>
-    .tzcontainer {
-        width: 999px;
-        height: 60px;
-    }
-</style>
 
-<div class="container shadow-lg bg-light">
+<div id="locations">
     @foreach (TZone timezone in @Model)
     {
-        <div class="tzcontainer">
-            <div class="col-2">
-                <div class="bg-dark text-light p-1">
-                    <span class="text-lg-start">@timezone.CityName<small class="badge badge-secondary">@timezone.TimeZoneCode</small></span>
-                    
-                    <div>@timezone.Country</div>
-                </div>
-                
+
+    <div class="tzcontainer srt">
+        <div class="location" style="cursor: move;">
+            <div class="city">
+                <b>@timezone.CityName</b>
+                <small>@timezone.TimeZoneCode</small>
             </div>
-            <div class="col-10">
-                Show Days here
-            </div>
+            <div class="country">@timezone.Country</div>
         </div>
+
+        <div class="data" style="cursor: move;">
+            <div class="time">
+                <span class="th">@((DateTime.Now + timezone.UtcOffset).Hour)</span>
+                <span class="ts">:</span>
+                <span class="tm">@((DateTime.Now + timezone.UtcOffset).Minute)</span>
+            </div>
+
+            <div class="date">@((DateTime.Today + timezone.UtcOffset).ToShortDateString())</div>
+        </div>
+
+
+        <div class="hourline">
+            <ul start-hour="@timezone.UtcOffset.Hours"
+                day-start-class="tod_c w"
+                day-mor-class="tod_m w"
+                day-day-class="tod_d w"
+                day-eve-class="tod_e w"
+                day-nig-class="tod_n w"
+                day-boundary-class="tod_boundary"
+                class="_24 m00"></ul>
+        </div>
+    </div>
     }
 </div>
