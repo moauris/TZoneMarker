@@ -32,6 +32,7 @@ namespace TZoneMarker.TagHelpers
 
             StartHour = (24 + StartHour) % 24;
             int CurrentHour = StartHour;
+            Debug.Print($"Start Hour is {StartHour}");
             do
             {
                 
@@ -39,27 +40,27 @@ namespace TZoneMarker.TagHelpers
                 TagBuilder b = new TagBuilder("b");
                 
                 b.InnerHtml.Append(CurrentHour.ToString());
-                if (Enumerable.Range(1, 7).Contains(CurrentHour))
+                if (new int[] { 1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22 }.Contains(CurrentHour))
                 {
                     li.AddCssClass(DayNigClass);
 
                     li.InnerHtml.AppendHtml(b);
                 }
-                if (Enumerable.Range(8, 10).Contains(CurrentHour))
+                if (new int[] { 8, 9, 10 }.Contains(CurrentHour))
                 {
                     li.AddCssClass(DayMorClass);
 
                     li.InnerHtml.AppendHtml(b);
                 }
-                if (Enumerable.Range(11, 18).Contains(CurrentHour))
+                if (new int[] { 11, 12, 13, 14, 15, 16 }.Contains(CurrentHour))
                 {
-                    li.AddCssClass(DayEveClass);
+                    li.AddCssClass(DayDayClass);
 
                     li.InnerHtml.AppendHtml(b);
                 }
-                if (Enumerable.Range(19, 22).Contains(CurrentHour))
+                if (new int[] { 17, 18}.Contains(CurrentHour))
                 {
-                    li.AddCssClass(DayNigClass);
+                    li.AddCssClass(DayEveClass);
 
                     li.InnerHtml.AppendHtml(b);
                 }
@@ -86,6 +87,7 @@ namespace TZoneMarker.TagHelpers
                 }
 
                 result.InnerHtml.AppendHtml(li);
+                Debug.Print($"Current Hour is {CurrentHour}");
                 CurrentHour = (CurrentHour + 1) % 24;
 
             } while (CurrentHour != StartHour);
