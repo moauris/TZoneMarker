@@ -18,6 +18,7 @@ namespace TZoneMarker.TagHelpers
 
         }
         public int StartHour { get; set; }
+        public int UtcOffset { get; set; }
         public string DayStartClass { get; set; }
         public string DayMorClass { get; set; }
         public string DayDayClass { get; set; }
@@ -40,7 +41,7 @@ namespace TZoneMarker.TagHelpers
                 TagBuilder b = new TagBuilder("b");
                 
                 b.InnerHtml.Append(CurrentHour.ToString());
-                if (new int[] { 1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22 }.Contains(CurrentHour))
+                if (new int[] { 1, 2, 3, 4, 5, 6, 7, 20, 21, 22, 23 }.Contains(CurrentHour))
                 {
                     li.AddCssClass(DayNigClass);
 
@@ -58,7 +59,7 @@ namespace TZoneMarker.TagHelpers
 
                     li.InnerHtml.AppendHtml(b);
                 }
-                if (new int[] { 17, 18}.Contains(CurrentHour))
+                if (new int[] { 17, 18, 19}.Contains(CurrentHour))
                 {
                     li.AddCssClass(DayEveClass);
 
@@ -67,8 +68,6 @@ namespace TZoneMarker.TagHelpers
                 if (CurrentHour == 23)
                 {
                     li.AddCssClass(DayBoundaryClass);
-
-                    li.InnerHtml.AppendHtml(b);
                 }
 
                 if (CurrentHour == 0)

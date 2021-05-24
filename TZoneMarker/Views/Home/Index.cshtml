@@ -6,40 +6,45 @@
 @model IEnumerable<TZone>
 
 
-<div id="locations">
-    @foreach (TZone timezone in @Model)
-    {
+<div id="locations_wrapper">
+    <div id="locations">
 
-    <div class="tzcontainer srt">
-        <div class="location" style="cursor: move;">
-            <div class="city">
-                <b>@timezone.CityName</b>
-                <small>@timezone.TimeZoneCode</small>
+        @foreach (TZone timezone in @Model)
+        {
+
+            <div class="container srt">
+                <div class="location" style="cursor: move;">
+                    <div class="city">
+                        <b>@timezone.CityName</b>
+                        <small>@timezone.TimeZoneCode</small>
+                    </div>
+                    <div class="country">@timezone.Country</div>
+                </div>
+
+                <div class="data" style="cursor: move;">
+                    <div class="time">
+                        <span class="th">@((DateTime.Now + timezone.UtcOffset).Hour)</span>
+                        <span class="ts">:</span>
+                        <span class="tm">@((DateTime.Now + timezone.UtcOffset).Minute)</span>
+                    </div>
+
+                    <div class="date">@((DateTime.Today + timezone.UtcOffset).ToShortDateString())</div>
+                </div>
+
+
+                <div class="hourline">
+                    <ul start-hour="@timezone.UtcOffset.Hours"
+                        day-start-class="tod_c w"
+                        day-mor-class="tod_m w"
+                        day-day-class="tod_d w"
+                        day-eve-class="tod_e w"
+                        day-nig-class="tod_n w"
+                        day-boundary-class="tod_boundary"
+                        Utc-Offset="@timezone.UtcOffset.Hours"
+                        class="_24 m00"></ul>
+                </div>
             </div>
-            <div class="country">@timezone.Country</div>
-        </div>
+        }
 
-        <div class="data" style="cursor: move;">
-            <div class="time">
-                <span class="th">@((DateTime.Now + timezone.UtcOffset).Hour)</span>
-                <span class="ts">:</span>
-                <span class="tm">@((DateTime.Now + timezone.UtcOffset).Minute)</span>
-            </div>
-
-            <div class="date">@((DateTime.Today + timezone.UtcOffset).ToShortDateString())</div>
-        </div>
-
-
-        <div class="hourline">
-            <ul start-hour="@timezone.UtcOffset.Hours"
-                day-start-class="tod_c w"
-                day-mor-class="tod_m w"
-                day-day-class="tod_d w"
-                day-eve-class="tod_e w"
-                day-nig-class="tod_n w"
-                day-boundary-class="tod_boundary"
-                class="_24 m00"></ul>
-        </div>
     </div>
-    }
 </div>
